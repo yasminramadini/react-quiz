@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios"
 import Timer from "../components/Timer.jsx"
+import Score from "../components/Score.jsx"
+import { useNavigate } from "react-router-dom"
 
 const Quiz = () => {
   const [user, setUser] = useState("")
@@ -9,10 +11,16 @@ const Quiz = () => {
   const [score, setScore] = useState(0)
   const [running, setRunning] = useState(true)
   const alphabetOptions = ["A", "B", "C"]
+  const navigate = useNavigate()
   
   useEffect(() => {
     //dapatkan data user
-    setUser(JSON.parse(localStorage.getItem("YR_QUIZ_APP")))
+    const user = JSON.parse(localStorage.getItem("YR_QUIZ_APP"))
+    if (!user) {
+      navigate("/login")
+    } else {
+      setUser(user)
+    }
     
     //dapatkan kuis jika tab tidak sengaja tertutup
     const quizHistory = JSON.parse(localStorage.getItem("YR_QUIZ"))
@@ -65,25 +73,13 @@ const Quiz = () => {
     }
   }
   
-  const playAgain = () => {
-    localStorage.removeItem("YR_QUIZ_CURRENT_QUESTION")
-    localStorage.removeItem("YR_QUIZ")
-    localStorage.removeItem("YR_QUIZ_CURRENT_SCORE")
-    document.location.reload()
-  }
-  
   return (
     <main className="container">
       <div className="row justify-content-center align-items-center mt-5">
         <div className="col-md-6 bg-white rounded py-4">
         
         {!running ? 
-        <section className="text-center">
-          Your score is {score}
-          <div className="d-grid mt-4">
-            <button className="btn btn-primary" onClick={playAgain}>Play again</button>
-          </div>
-        </section> 
+          <Score score={score} />
         :
         <section>
           <h1 className="text-center mb-4">Welcome, {user.username}</h1>

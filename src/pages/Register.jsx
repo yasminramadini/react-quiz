@@ -1,10 +1,17 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const Register = () => {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
+  
+  useEffect(() => {
+    const user = localStorage.getItem("YR_QUIZ_APP")
+    if (user) {
+      navigate("/")
+    }
+  }, [])
   
   const registerProcess = (e) => {
     e.preventDefault()
@@ -13,7 +20,7 @@ const Register = () => {
       password
     }
     localStorage.setItem("YR_QUIZ_APP", JSON.stringify(user))
-    navigate("/login")
+    navigate("/")
   }
   
   return (

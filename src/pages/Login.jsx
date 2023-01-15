@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const Login = () => {
   const [username, setUsername] = useState("")
@@ -7,9 +7,21 @@ const Login = () => {
   const [error, setError] = useState("")
   const navigate = useNavigate()
   
+  useEffect(() => {
+    const user = localStorage.getItem("YR_QUIZ_APP")
+    if (user) {
+      navigate("/")
+    }
+  }, [])
+  
   const loginProcess = (e) => {
     e.preventDefault()
     const user = JSON.parse(localStorage.getItem("YR_QUIZ_APP"))
+    
+    if (!user) {
+      setError("An account has not been registered")
+    }
+    
     if (username === user.username) {
       if (password === user.password) {
         navigate("/")
