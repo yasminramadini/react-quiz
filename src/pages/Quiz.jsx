@@ -24,12 +24,14 @@ const Quiz = () => {
     
     //kembalikan currentQuestion dan score jika browser tertutup
     const currentQuestionHistory = JSON.parse(localStorage.getItem("YR_QUIZ_CURRENT_QUESTION"))
-    const scoreHistory = JSON.parse(localStorage.getItem("YR_QUIZ_CURRENT_SCORE"))
-    setCurrentQuestion(currentQuestionHistory)
-    setScore(scoreHistory)
+    if (currentQuestionHistory) {
+      setCurrentQuestion(currentQuestionHistory)
+    }
     
-    localStorage.setItem("YR_QUIZ_CURRENT_SCORE", score)
-    localStorage.setItem("YR_QUIZ_CURRENT_QUESTION", currentQuestion)
+    const scoreHistory = JSON.parse(localStorage.getItem("YR_QUIZ_CURRENT_SCORE"))
+    if (scoreHistory) {
+      setScore(scoreHistory)
+    }
   }, [])
   
   const getQuiz = () => {
@@ -55,7 +57,6 @@ const Quiz = () => {
     localStorage.setItem("YR_QUIZ_CURRENT_SCORE", newScore)
     
     const newQuestion = currentQuestion + 1
-    
     if (newQuestion < quizes.length) {
       setCurrentQuestion(newQuestion)
       localStorage.setItem("YR_QUIZ_CURRENT_QUESTION", newQuestion)
