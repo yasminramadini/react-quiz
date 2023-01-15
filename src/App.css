@@ -1,29 +1,14 @@
-.indicator::-webkit-scrollbar {
-  display: none;
-}
-
-.indicator {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.indicator p {
-  width: 48px;
-  height: 48px;
-  border: 2px solid #ddd;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.options {
   background: #fff;
-  transition: 0.3s;
-  font-size: 18px;
-  flex-shrink: 0;
+  border: none;
+  outline: none;
+  display: block;
+  margin: 20px 0;
+  padding: 10px;
+  width: 100%;
+  text-align: left;
 }
 
-.indicator p.active {
-  border-color: #9e3ce4;
-  background: #9e3ce4;
-  color: #fff;
+.options:hover {
+  background: #ddd;
 }
-
