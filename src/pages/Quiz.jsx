@@ -17,7 +17,7 @@ const Quiz = () => {
     //dapatkan data user
     const user = JSON.parse(localStorage.getItem("YR_QUIZ_APP"))
     if (!user) {
-      navigate("/login")
+      navigate("/register")
     } else {
       setUser(user)
     }
